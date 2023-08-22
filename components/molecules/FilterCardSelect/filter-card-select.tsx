@@ -3,7 +3,15 @@ import Image from "next/image";
 
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "components/atoms/Select/select";
+import { SelectSeparator } from "@radix-ui/react-select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "components/atoms/Select/select";
 import Search from "components/atoms/Search/search";
 import { SearchProps } from "components/atoms/Search/search";
 
@@ -65,19 +73,23 @@ const FilterCardSelect: React.FC<FilterCardSelectProps> = ({
           {!options.includes(filterName) ? filterName : <SelectValue placeholder="select topic" />}
         </SelectTrigger>
         <SelectContent className="bg-white">
-          {options.map((option, index) => (
-            <SelectItem
-              className="w-48 text-base"
-              itemIndicatorIcon={<BsFillCheckCircleFill className="!text-base text-light-orange-10" />}
-              key={index}
-              value={option}
-            >
-              {option}
-            </SelectItem>
-          ))}
-          <div className="py-1 text-center uppercase text-xs opacity-30">search topic</div>
+          <SelectGroup className="">
+            {options.map((option, index) => (
+              <SelectItem
+                className="w-48 text-base"
+                itemIndicatorIcon={<BsFillCheckCircleFill className="!text-base text-light-orange-10" />}
+                key={index}
+                value={option}
+              >
+                {option}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+          <SelectSeparator />
+          <SelectGroup className="">
+            <Search className="w-48" {...SearchProps} name={name} />
+          </SelectGroup>
         </SelectContent>
-        <Search className="w-48" {...SearchProps} name={name} />
       </Select>
     </>
   );
