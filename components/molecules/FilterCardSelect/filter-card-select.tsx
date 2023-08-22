@@ -4,16 +4,20 @@ import Image from "next/image";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "components/atoms/Select/select";
+import Search from "components/atoms/Search/search";
+import { SearchProps } from "components/atoms/Search/search";
+
 import hashIcon from "../../../img/icons/hash.svg";
 import orgIcon from "../../../img/icons/org.svg";
 import personIcon from "../../../img/icons/person.svg";
 import repoIcon from "../../../img/icons/repo.svg";
 
-interface FilterCardSelectProps {
+interface FilterCardSelectProps extends SearchProps {
   selected: string;
   icon?: "topic" | "repo" | "org" | "contributor";
   options: string[];
   handleFilterClick: (filter: string) => void;
+  name: string;
 }
 
 const icons = {
@@ -40,36 +44,42 @@ const FilterCardSelect: React.FC<FilterCardSelectProps> = ({
   icon = "topic",
   options,
   handleFilterClick,
+  name,
+  ...SearchProps
 }) => {
   return (
-    <Select onValueChange={(value) => handleFilterClick(value)} value={filterName}>
-      <SelectTrigger
-        selectIcon={
-          <Image
-            className="ml-3 "
-            width={13}
-            height={13}
-            alt={icons[icon] ? icons[icon].alt : "Icons"}
-            src={icons[icon] ? icons[icon].src : icons.topic.src}
-          />
-        }
-        className="text-base rounded-lg cursor-pointer h-[1.95rem] w-max border-slate-300 hover:bg-slate-50 focus:ring-1 bg-slate-100 focus:ring-slate-300"
-      >
-        {!options.includes(filterName) ? filterName : <SelectValue placeholder="select topic" />}
-      </SelectTrigger>
-      <SelectContent className="bg-white">
-        {options.map((option, index) => (
-          <SelectItem
-            className="w-48 text-base"
-            itemIndicatorIcon={<BsFillCheckCircleFill className="!text-base text-light-orange-10" />}
-            key={index}
-            value={option}
-          >
-            {option}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <>
+      <Select onValueChange={(value) => handleFilterClick(value)} value={filterName}>
+        <SelectTrigger
+          selectIcon={
+            <Image
+              className="ml-3 "
+              width={13}
+              height={13}
+              alt={icons[icon] ? icons[icon].alt : "Icons"}
+              src={icons[icon] ? icons[icon].src : icons.topic.src}
+            />
+          }
+          className="text-base rounded-lg cursor-pointer h-[1.95rem] w-max border-slate-300 hover:bg-slate-50 focus:ring-1 bg-slate-100 focus:ring-slate-300"
+        >
+          {!options.includes(filterName) ? filterName : <SelectValue placeholder="select topic" />}
+        </SelectTrigger>
+        <SelectContent className="bg-white">
+          {options.map((option, index) => (
+            <SelectItem
+              className="w-48 text-base"
+              itemIndicatorIcon={<BsFillCheckCircleFill className="!text-base text-light-orange-10" />}
+              key={index}
+              value={option}
+            >
+              {option}
+            </SelectItem>
+          ))}
+          <div className="py-1 text-center uppercase text-xs opacity-30">search topic</div>
+        </SelectContent>
+        <Search className="w-48" {...SearchProps} name={name} />
+      </Select>
+    </>
   );
 };
 

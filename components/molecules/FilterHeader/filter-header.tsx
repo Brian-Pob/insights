@@ -14,7 +14,6 @@ import FilterCardSelect from "components/molecules/FilterCardSelect/filter-card-
 import getTopicThumbnail from "lib/utils/getTopicThumbnail";
 import { interestsType } from "lib/utils/getInterestOptions";
 import { getInterestOptions } from "lib/utils/getInterestOptions";
-import Search from "components/atoms/Search/search";
 
 const HeaderFilter = () => {
   const router = useRouter();
@@ -66,14 +65,10 @@ const HeaderFilter = () => {
             options={topicOptions as unknown as []}
             icon="topic"
             handleFilterClick={topicRouting}
-          />
-          <span className="w-0.5 bg-slate-300 h-6"></span>
-          <Search
             placeholder="Search topic"
             name="topic-search"
             value={filterName as string}
             autoFocus={false}
-            className="text-base rounded-lg cursor-pointer h-8 border-slate-300 hover:bg-slate-50 focus:ring-1  focus:ring-slate-300 shadow-none max-w-40"
             onSearch={(value) => {
               topicRouting((value as string).toLocaleLowerCase());
             }}
@@ -81,8 +76,6 @@ const HeaderFilter = () => {
             onChange={() => {}}
             isLoading={false}
           />
-        </div>
-        <div className="flex mt-4 items-center gap-2">
           <SuperativeSelector
             filterOptions={filterOptions}
             filterValues={filterValues}

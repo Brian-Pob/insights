@@ -16,4 +16,6 @@ export const Default = SelectTemplate.bind({});
 Default.args = {
   options: ["option1", "option2", "option3"],
   selected: "option1",
+  placeholder: "Search other options",
+  name: "select",
 };

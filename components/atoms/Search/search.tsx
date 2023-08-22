@@ -61,10 +61,11 @@ const Search = ({
     onChange?.(e.target.value);
   };
 
+  console.log("search className", className);
   return (
     <div
       className={`${
-        className && className
+        className || ""
       } flex bg-white  py-1 w-max px-3 shadow-input border transition focus-within:ring focus-within:border-orange-500 focus-within:ring-orange-100 rounded-lg   ring-light-slate-6 items-center relative`}
     >
       <FaSearch className="text-light-slate-9" fontSize={16} onClick={handleOnSearch} />
@@ -115,3 +116,4 @@ const Search = ({
   );
 };
 export default Search;
+export type { SearchProps };
